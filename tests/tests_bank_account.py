@@ -8,11 +8,16 @@ class BankAccountTests(unittest.TestCase):
 
     def test_deposit(self):
         new_balance = self.account.deposit(500)
-        assert new_balance == 1500
-
+        # assert new_balance == 1500
+        self.assertEqual(new_balance,1500)
     def test_withdraw(self):
         new_balance = self.account.withdraw(200)
-        assert new_balance == 800
+        #assert new_balance == 800
+        self.assertEqual(new_balance,800)
 
     def test_get_balance(self):
-        assert self.account.get_balance() == 1000
+        # assert self.account.get_balance() == 1000
+        self.assertEqual(self.account.get_balance(), 1000)
+
+if __name__== '__main__':
+    unittest.main()
