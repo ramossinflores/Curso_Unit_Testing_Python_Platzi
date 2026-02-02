@@ -5,7 +5,7 @@
 # Fecha: 02/02/26
 #====================================================================
 
-import unittest
+import unittest, os
 from src.bank_account import BankAccount
 
 class BankAccountTests(unittest.TestCase): 
@@ -15,7 +15,17 @@ class BankAccountTests(unittest.TestCase):
 
     # El setup, el objeto account que se usa en todas siguientes pruebas
     def setUp(self) -> None:
-        self.account = BankAccount(balance=1000)
+        self.account = BankAccount(balance=1000, log_file="transaction_log.txt")
+
+    # El teardown, borra el archivo después de ejecutar cada prueba
+    def tearDown(self) -> None:
+        if os.path.exists(self.account.log_file):
+            os.remove(self.account.log_file)
+        
+    # Método que cuenta las líneas del archivo de logs
+    def _count_lines_(self, filename):
+        with open(filename, "r") as f:
+            return len(f.readlines())
 
 # Testea que el comportamiento del depósito sea el correcto para el valor esperado
     def test_deposit(self):
@@ -64,5 +74,17 @@ class BankAccountTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.account.transfer(0)
 
+# Testea la existencia del archivo de logs
+    def test_transaction_log(self): 
+        self.account.get_balance()
+        # assert os.path.exists("transaction_log.txt")
+        self.assertTrue(os.path.exists("transaction_log.txt"))
+
+# Test que checa si el número de líneas en el archivo de logs son correctas
+    def test_count_transactions(self):
+        assert self._count_lines_(self.account.log_file) == 1
+        self.account.deposit(500)
+        assert self._count_lines_(self.account.log_file) == 2
+        
 if __name__== '__main__':
-    unittest.main()
+    unittest.main() 
