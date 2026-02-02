@@ -1,3 +1,11 @@
+
+#====================================================================
+# Script: calculator.py
+# Descripción: Funciones básicas de una calculadora
+# Autor: Laura Ramos Granados
+# Fecha: 28/01/26
+#====================================================================
+
 def add(a,b):
     return a + b
 

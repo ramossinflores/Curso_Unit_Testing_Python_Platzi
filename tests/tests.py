@@ -1,3 +1,10 @@
+#====================================================================
+# Script: tests.py
+# Descripción: Prueba de calcular el total a partir de una lista de productos
+# Autor: Laura Ramos Granados
+# Fecha: 28/01/26
+#====================================================================
+
 def calculate_total(products, discount=0):
     total =  0
     for product in products:
