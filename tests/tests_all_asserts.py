@@ -1,4 +1,5 @@
 import unittest 
+SERVER = "server_b"
 
 class AllAssertTests(unittest.TestCase):
     """
@@ -33,3 +34,17 @@ class AllAssertTests(unittest.TestCase):
         )
     
     # lo mismo para sets -> assertSetEqual
+
+    # Pasar una prueba aunque esté presente, solo pasar de ella, porque esté en construcción u otros 
+    @unittest.skip("Trabajo en progreso. Será habilitada nuevamente")
+    def test_skip(self):
+        self.assertEqual("hola","chao")
+
+    # @unittest.skipIf(True, "Saltada porque no estamos en el servidor"). Arriba se define la variable SERVER con un servidor diferente (server_b) para que así se salte la prueba, ya que la condición no es verdadera
+    @unittest.skipIf(SERVER == "server_b", "Saltada porque no estamos en el servidor")
+    def test_skip_if(self):
+        self.assertEqual(100,100)
+
+    @unittest.expectedFailure
+    def test_expected_failure(self):
+        self.assertEqual(100,150)
