@@ -1,3 +1,11 @@
+#====================================================================
+# Script: tests_all_assert.py 
+# Descripción: Clase para probar diferentes tipos de asserts y decorradores 
+# Autor: Laura Ramos Granados
+# Fecha: 03/02/26
+#====================================================================
+
+
 import unittest 
 SERVER = "server_b"
 
@@ -48,3 +56,7 @@ class AllAssertTests(unittest.TestCase):
     @unittest.expectedFailure
     def test_expected_failure(self):
         self.assertEqual(100,150)
+
+"""
+    Reto: Imagina que nuestra app de banco va a empezar a utilizar varias monedas y que se conecta a una API para obtener el valor del cambio, utilizando skipunless para que pueda validar si la API está corriendo y después de que esté corriendo ejecutar las validaciones, trayendo el precio del dólar y modificando la clase del BankAccount para ver como se pueden manejar dos currencies dentro de la misma clase 
+"""
