@@ -23,7 +23,8 @@ class BankAccount:
     # método depósito
     def deposit(self, amount):
         if amount <= 0: # primero, comprueba si el valor es menor o igual a cero
-            raise ValueError('La cantidad debe ser mayor que 0')
+            self._log_transaction('Operación fallida: Importe inválido')
+            raise ValueError('Importe inválido')
         self.balance += amount # si no es así, sumo cantidad al balance
         self._log_transaction(f'Depositado: {amount}. Nuevo balance: {self.balance}')
         return self.balance
@@ -31,9 +32,11 @@ class BankAccount:
     # método retiro
     def withdraw(self, amount):
         if amount <= 0: # primero, comprueba si el valor es menor o igual a cero
-            raise ValueError('La cantidad debe ser mayor que 0')
+            self._log_transaction('Operación fallida: Importe inválido')
+            raise ValueError('Importe inválido')
         if amount > self.balance: # segundo, se asegura que la cantidad no sea mayor que el balance, que no haya un sobre giro
-            raise ValueError('El saldo en su cuenta no es suficiente para realizar este retiro')
+            self._log_transaction(f'El saldo en su cuenta no es suficiente para realizar este retiro')
+            raise ValueError('Operación fallida: Saldo insuficiente ')
         self.balance -= amount # tercero, si las condiciones anteriores no se cumplen, resto la cantidad al balance
         self._log_transaction(f'Retirado: {amount}. Nuevo balance: {self.balance}')
         return self.balance
@@ -46,11 +49,12 @@ class BankAccount:
     # método transferencia
     def transfer(self, amount):
         if amount <=0:  # primero, comprueba si el valor es menor o igual a cero
-            raise ValueError('La cantidad debe ser mayor que 0')        
+            self._log_transaction('Operación fallida: Importe inválido')
+            raise ValueError('Importe inválido')        
         if amount > self.balance: # segundo, se asegura que la cantidad no sea mayor que el balance, muestra la cantidad que no puede tranferir en contraste con el saldo actual
+            self._log_transaction('El saldo en su cuenta no es suficiente para realizar esta transferencia')
             raise ValueError(f'No es posible transferir {amount}. Saldo disponible: {self.balance}.')
         self.balance -= amount
         self._log_transaction(f'Transferido: {amount}. Nuevo balance: {self.balance}')
         return self.balance
     
-    # agrega un logh cada vez que alguien haga un transferencia y no tenga saldo disponible, texto que diga que no tiene slado disponible

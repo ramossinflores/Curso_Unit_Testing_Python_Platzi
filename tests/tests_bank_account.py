@@ -31,7 +31,7 @@ class BankAccountTests(unittest.TestCase):
     def test_deposit(self):
         new_balance = self.account.deposit(500)
         # assert new_balance == 1500
-        self.assertEqual(new_balance,1500)
+        self.assertEqual(new_balance,1500, "Nuevo balance es incorrecto")
 
 # Testea la respuesta del método deposit cuando el valor es cero
     def test_invalid_amount_deposit(self):
@@ -42,12 +42,15 @@ class BankAccountTests(unittest.TestCase):
     def test_withdraw(self):
         new_balance = self.account.withdraw(200)
         #assert new_balance == 800
-        self.assertEqual(new_balance,800)
+        self.assertEqual(new_balance,800,  "El balance no es correcto")
     
 # Testea el comportamiento del retiro cuando el saldo es insuficiente    
     def test_insufficient_funds_withdraw(self):
         with self.assertRaises(ValueError):
             self.account.withdraw(2000)
+        with open(self.account.log_file, "r") as f:
+            content = f.read()
+        self.assertIn('El saldo en su cuenta no es suficiente para realizar este retiro',content)
 
 # Testea la respuesta del método withdraw cuando el valor es cero    
     def test_invalid_amount_withdraw(self):
@@ -57,22 +60,26 @@ class BankAccountTests(unittest.TestCase):
 # Testea la función que muestra el balance
     def test_get_balance(self):
         # assert self.account.get_balance() == 1000
-        self.assertEqual(self.account.get_balance(), 1000)
+        self.assertEqual(self.account.get_balance(), 1000, "El balance no es correcto")
 
 # Testea que el comportamiento de transfer sea el correcto para el valor esperado
     def test_transfer(self):
         new_balance = self.account.transfer(300)
-        self.assertEqual(new_balance, 700)
+        self.assertEqual(new_balance, 700, "El balance no es correcto")
 
 # Testea el comportamiento de la transferencia cuando el saldo es insuficiente        
     def test_insufficient_funds_transfer(self):
-        with self.assertRaises(ValueError):
-            self.account.transfer(1200)
+        with self.assertRaises(ValueError) as e:
+            self.account.transfer(1200)        
+        with open(self.account.log_file, "r") as f:
+            content = f.read()
+        self.assertIn("El saldo en su cuenta no es suficiente para realizar esta transferencia", content)
 
 # Testea la respuesta del método transfer cuando el valor es cero    
     def test_invalid_amount_transfer(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as e:
             self.account.transfer(0)
+        self.assertEqual(str(e.exception), "Importe inválido")
 
 # Testea la existencia del archivo de logs
     def test_transaction_log(self): 
@@ -85,6 +92,9 @@ class BankAccountTests(unittest.TestCase):
         assert self._count_lines_(self.account.log_file) == 1
         self.account.deposit(500)
         assert self._count_lines_(self.account.log_file) == 2
+
         
+    
+
 if __name__== '__main__':
     unittest.main() 
