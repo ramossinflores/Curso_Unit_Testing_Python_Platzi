@@ -7,7 +7,9 @@
 
 import unittest, os
 from src.bank_account import BankAccount
+from src.banxico import api_is_up
 
+BANXICO_TOKEN = os.getenv("BANXICO_TOKEN", "")
 class BankAccountTests(unittest.TestCase): 
     """
         Clase heredada de unittest que define las pruebas unitarias para la clase BankAccount
@@ -93,7 +95,11 @@ class BankAccountTests(unittest.TestCase):
         self.account.deposit(500)
         assert self._count_lines_(self.account.log_file) == 2
 
-        
+    @unittest.skipUnless(api_is_up() and BANXICO_TOKEN, "API Banxico no disponible o falta BANXICO_TOKEN")
+    def test_convert_mxn_to_usd(self):
+        acc = BankAccount(balance=1000, currency="MXN", banxico_token=BANXICO_TOKEN)
+        usd = acc.get_balance_usd()
+        self.assertGreater(usd, 0)        
     
 
 if __name__== '__main__':
