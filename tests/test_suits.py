@@ -1,3 +1,10 @@
+#====================================================================
+# Script: test_suits.py
+# Descripción: Implementar suits
+# Autor: Laura Ramos Granados
+# Fecha 04/02/26
+#====================================================================
+
 import unittest
 from tests.test_bank_account import BankAccountTests
 
