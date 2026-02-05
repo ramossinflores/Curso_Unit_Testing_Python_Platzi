@@ -1,4 +1,3 @@
-# src/banxico.py
 import requests
 
 SERIE_FIX_USD_MXN = "SF43718"
@@ -19,4 +18,6 @@ def get_usd_mxn_fix(token: str) -> float:
     r = requests.get(url, headers=headers, params={"mediaType": "json"}, timeout=10)
     data = r.json()
 
-    serie = data["bmx"]["series"][0]  
+    serie = data["bmx"]["series"][0]
+    dato = serie["datos"][0]["dato"]
+    return float(dato) 
