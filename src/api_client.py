@@ -12,4 +12,4 @@ def get_location(ip):
     }
 
 if __name__ == "__main__":
-    get_location("8.8.8.8")
+    print(get_location("8.8.8.8")) 
