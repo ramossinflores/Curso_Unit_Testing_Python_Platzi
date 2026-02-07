@@ -92,3 +92,30 @@ class ApiClientTest(unittest.TestCase):
 
     # Reto: Validar si el usuario ha introducido una IP correcta.
 
+    @patch("src.api_client.requests.get")
+    def test_get_location_invalid_ip(self, mock_get):
+        with self.assertRaises(ValueError):
+            get_location("999.999.999.999")
+
+        mock_get.assert_not_called()
+
+    @patch("src.api_client.requests.get")
+    def test_get_location_valid_ip(self, mock_get):
+        fake_response = unittest.mock.Mock()
+        fake_response.raise_for_status.return_value = None
+        fake_response.json.return_value = {
+            "countryName": "USA",
+            "regionName": "FLORIDA",
+            "cityName": "MIAMI",
+            "countryCode": "US",
+        }
+
+        mock_get.return_value = fake_response
+        result = get_location("8.8.8.8")
+        self.assertEqual(result["country"], "USA")
+        self.assertEqual(result["region"], "FLORIDA")
+        self.assertEqual(result["city"], "MIAMI")
+        self.assertEqual(result["country_code"], "US")
+
+
+
