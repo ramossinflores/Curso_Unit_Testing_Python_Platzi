@@ -9,6 +9,7 @@ def get_location(ip):
         "country": data["countryName"],
         "region": data["regionName"],
         "city": data["cityName"],
+        "country_code": data["countryCode"]
     }
 
 if __name__ == "__main__":
