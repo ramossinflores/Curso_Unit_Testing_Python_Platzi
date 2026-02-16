@@ -101,6 +101,20 @@ class BankAccountTests(unittest.TestCase):
         usd = acc.get_balance_usd()
         self.assertGreater(usd, 0)        
     
+    # Función para probar la parametrización con pruebas con subtest
+    def test_deposit_multiple_amounts(self):
+        test_cases =  [
+            {"amount" : 100, "expected": 1100 },
+            {"amount" : 3500, "expected": 4500},
+            {"amount" : 4000, "expected":5000}
+        ]
+        for case in test_cases:
+            with self.subTest(case=case): 
+                self.account = BankAccount(balance=1000, log_file="transactions.txt")
+                new_balance = self.account.deposit(case["amount"])
+                self.assertEqual(new_balance, case["expected"])
+
+
 
 if __name__== '__main__':
     unittest.main() 
