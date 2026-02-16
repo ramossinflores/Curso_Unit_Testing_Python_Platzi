@@ -1,11 +1,9 @@
 # 🧪 Unit Testing en Python
 
-Repositorio de prácticas del **Curso de Unit Testing en Python**.  
-Aquí voy documentando y aplicando de forma progresiva los conceptos de **testing automatizado** usando `unittest` (y más adelante `pytest`), con ejemplos prácticos y código propio.
+Repositorio de prácticas del Curso de Unit Testing en Python.
+Aquí documento y aplico de forma progresiva los conceptos de testing automatizado en Python, utilizando principalmente unittest y técnicas de mocking para simular dependencias externas.
 
-> 📍 Estado actual del curso: **Clase 5 – Métodos Setup y Teardown en UnitTest**
-
-
+> 📍 Estado actual del curso: Clase 12 – Simulación de Side Effects con Mock en Pruebas Unitarias
 
 ## 🎯 Objetivo del proyecto
 
@@ -13,48 +11,48 @@ Aquí voy documentando y aplicando de forma progresiva los conceptos de **testin
 - Entender la diferencia entre **pruebas unitarias, de integración y funcionales**
 - Aplicar **buenas prácticas de testing**
 - Ganar soltura con `unittest` antes de pasar a `pytest`
-- Construir una base sólida para proyectos reales
-
+- Construir una base sólida antes de dar el salto a pytest
 
 ## 🧠 Contenidos trabajados hasta ahora
 
 Hasta la **clase 5**, se han cubierto y aplicado los siguientes temas:
+Fundamentos de Testing
 
-- ✔️ Qué es el testing y por qué es importante
-- ✔️ Tipos de pruebas: unitarias, integración y funcionales
-- ✔️ Automatización de pruebas en Python
-- ✔️ Estructura básica de un proyecto de testing
-- ✔️ Uso de `unittest.TestCase`
-- ✔️ Métodos `setUp()` para preparar el entorno de pruebas
-- ✔️ Primeros tests sobre lógica de negocio (cuenta bancaria)
-- ✔️ Uso correcto de `assertEqual` y `assertRaises`
-- ✔️ Validación de errores y casos límite
+✔️ Qué es el testing y por qué es importante
 
+✔️ Tipos de pruebas: unitarias, integración y funcionales
 
+✔️ Automatización de pruebas en Python
 
-## 🧩 Ejemplo principal
+✔️ Estructura correcta de proyectos de testing
 
-El proyecto incluye una clase **`BankAccount`** con operaciones como:
+**Unittest en profundidad**
 
-- Depósito
-- Retiro
-- Transferencia
-- Validación de importes
-- Control de fondos insuficientes
+✔️ Uso de unittest.TestCase
 
-Y su correspondiente archivo de tests donde se comprueba:
+✔️ Métodos setUp() y preparación del entorno de pruebas
 
-- Funcionamiento correcto (happy path)
-- Manejo de errores (importes inválidos, saldo insuficiente)
-- Uso adecuado de excepciones
+✔️ Métodos de assert (assertEqual, assertRaises, etc.)
 
+✔️ Manejo de errores y casos límite
 
-## 🛠️ Tecnologías utilizadas
+✔️ Uso de decoradores para omitir pruebas o marcar fallos esperados
 
-- Python 3
-- `unittest`
-- Git + GitHub
-- Entorno virtual (`venv`)
+✔️ Convenciones de nombres para pruebas
+
+✔️ Organización y ejecución de test suites
+
+**Mocking y pruebas avanzadas**
+
+✔️ Simulación de APIs externas con unittest.mock
+
+✔️ Uso de patch para sustituir dependencias
+
+✔️ Simulación de errores HTTP y fallos de red
+
+✔️ Uso de side_effect para lanzar excepciones y simular múltiples llamadas consecutivas
+
+✔️ Validación de entradas (IPs válidas e inválidas) antes de llamadas externas
 
 
 ## 🚀 Próximos pasos
@@ -68,7 +66,6 @@ A medida que avance en el curso, se incorporarán:
 - Cobertura de código con `coverage`
 - Integración continua con GitHub Actions
 - Introducción a `pytest`
-
 
 ## 📌 Nota final
 
