@@ -10,7 +10,5 @@ class User:
     def add_account(self, account):
         self.accounts.append(account)
 
-    def get_total_balance(self,accounts):
-        return add(self.get_balance() for account in self.accounts)
-
-        
+    def get_total_balance(self):
+        return sum(account.get_balance() for account in self.accounts)
