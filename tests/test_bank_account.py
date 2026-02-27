@@ -9,7 +9,7 @@ import unittest, os
 from unittest.mock import patch
 from src.bank_account import BankAccount
 from src.banxico import api_is_up
-from src.exceptions import InsufficientFundsError
+from src.exceptions import InsufficientFundsError, WithdrawlTimeRestrictionError
 
 BANXICO_TOKEN = os.getenv("BANXICO_TOKEN", "")
 class BankAccountTests(unittest.TestCase): 
@@ -61,7 +61,7 @@ class BankAccountTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.account.withdraw(0)
 
-# Testea la funcionalidad del horario permitidos para retiros
+# Testean la funcionalidad del horario permitidos para retiros
     @patch("src.bank_account.datetime")
     def test_withdraw_during_bussines_hours(self, mock_datetime):
         fake_now = unittest.mock.Mock()
@@ -71,6 +71,13 @@ class BankAccountTests(unittest.TestCase):
         new_balance = self.account.withdraw(100)
         self.assertEqual(new_balance, 900)
 
+    @patch("src.bank_account.datetime")
+    def test_withdraw_desallow_before_bussines_hours(self, mock_datetime):
+        fake_now = unittest.mock.Mock()
+        fake_now.hour = 7
+        mock_datetime.now.return_value = fake_now
+        with self.assertRaises(WithdrawlTimeRestrictionError):
+            self.account.withdraw(100)
 
 # Testea la función que muestra el balance
     def test_get_balance(self):
