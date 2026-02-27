@@ -3,7 +3,7 @@
 Repositorio de prácticas del Curso de Unit Testing en Python.
 Aquí documento y aplico de forma progresiva los conceptos de testing automatizado en Python, utilizando principalmente unittest y técnicas de mocking para simular dependencias externas.
 
-> 📍 Estado actual del curso: Clase 12 – Simulación de Side Effects con Mock en Pruebas Unitarias
+> 📍 Estado actual del curso: Clase 12 – Completado (incluyendo Coverage, CI y primera aproximación a PyTest)
 
 ## 🎯 Objetivo del proyecto
 
@@ -15,57 +15,50 @@ Aquí documento y aplico de forma progresiva los conceptos de testing automatiza
 
 ## 🧠 Contenidos trabajados hasta ahora
 
-Hasta la **clase 5**, se han cubierto y aplicado los siguientes temas:
 Fundamentos de Testing
 
 ✔️ Qué es el testing y por qué es importante
-
 ✔️ Tipos de pruebas: unitarias, integración y funcionales
-
 ✔️ Automatización de pruebas en Python
-
 ✔️ Estructura correcta de proyectos de testing
 
-**Unittest en profundidad**
+Unittest en profundidad
 
 ✔️ Uso de unittest.TestCase
-
-✔️ Métodos setUp() y preparación del entorno de pruebas
-
+✔️ Métodos setUp() y tearDown()
 ✔️ Métodos de assert (assertEqual, assertRaises, etc.)
-
 ✔️ Manejo de errores y casos límite
-
 ✔️ Uso de decoradores para omitir pruebas o marcar fallos esperados
-
 ✔️ Convenciones de nombres para pruebas
-
 ✔️ Organización y ejecución de test suites
+✔️ Parametrización con subTest
+✔️ Uso de doctest
 
-**Mocking y pruebas avanzadas**
+Mocking y pruebas avanzadas
 
 ✔️ Simulación de APIs externas con unittest.mock
-
 ✔️ Uso de patch para sustituir dependencias
-
 ✔️ Simulación de errores HTTP y fallos de red
-
 ✔️ Uso de side_effect para lanzar excepciones y simular múltiples llamadas consecutivas
-
+✔️ Simulación de horarios para pruebas unitarias
 ✔️ Validación de entradas (IPs válidas e inválidas) antes de llamadas externas
 
+Datos y automatización
 
-## 🚀 Próximos pasos
+✔️ Generación de datos de prueba con Faker
+✔️ Cobertura de código con coverage
+✔️ Integración continua con GitHub Actions
+✔️ Introducción a pruebas con pytest
 
-A medida que avance en el curso, se incorporarán:
+🚀 Próximos pasos
 
-- `tearDown()`
-- Más métodos de assert
-- Organización avanzada de tests
-- Mocking y simulación de dependencias
-- Cobertura de código con `coverage`
-- Integración continua con GitHub Actions
-- Introducción a `pytest`
+Profundizar en pytest
+
+Aplicar testing en proyectos más complejos
+
+Integrar pruebas en entornos reales de desarrollo
+
+Mejorar diseño orientado a objetos para facilitar la testabilidad
 
 ## 📌 Nota final
 

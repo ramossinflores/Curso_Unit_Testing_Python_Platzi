@@ -78,6 +78,14 @@ class BankAccountTests(unittest.TestCase):
         mock_datetime.now.return_value = fake_now
         with self.assertRaises(WithdrawlTimeRestrictionError):
             self.account.withdraw(100)
+    
+    @patch("src.bank_account.datetime")
+    def test_withdraw_desallow_after_bussines_hours(self, mock_datetime):
+        fake_now = unittest.mock.Mock()
+        fake_now.hour = 18
+        mock_datetime.now.return_value = fake_now
+        with self.assertRaises(WithdrawlTimeRestrictionError):
+            self.account.withdraw(100)
 
 # Testea la función que muestra el balance
     def test_get_balance(self):
@@ -134,8 +142,6 @@ class BankAccountTests(unittest.TestCase):
                 self.account = BankAccount(balance=1000, log_file="transaction_log.txt")
                 new_balance = self.account.deposit(case["amount"])
                 self.assertEqual(new_balance, case["expected"])
-
-
 
 if __name__== '__main__':
     unittest.main() 
