@@ -1,5 +1,11 @@
 # logs 
-transaction.txt
+transaction_log.txt
+
+# Entorno 
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
 
 # Environments
 .env
