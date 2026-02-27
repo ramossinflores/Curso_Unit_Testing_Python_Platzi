@@ -6,7 +6,8 @@
 #====================================================================
 
 from src.banxico import get_usd_mxn_fix
-
+from datetime import datetime
+from src.exceptions import WithdrawlTimeRestrictionError, InsufficientFundsError
 
 # Clase que representa una cuenta bancaria
 class BankAccount: 
@@ -54,12 +55,15 @@ class BankAccount:
     
     # método retiro
     def withdraw(self, amount):
+        now = datetime.now()
+        if now.hour < 8 and now.hour >= 17:
+            raise WithdrawlTimeRestrictionError("Los retiros sólo están disponibles desde las 8am a 5pm")
         if amount <= 0: # primero, comprueba si el valor es menor o igual a cero
             self._log_transaction('Operación fallida: Importe inválido')
             raise ValueError('Importe inválido')
         if amount > self.balance: # segundo, se asegura que la cantidad no sea mayor que el balance, que no haya un sobre giro
             self._log_transaction(f'El saldo en su cuenta no es suficiente para realizar este retiro')
-            raise ValueError('Operación fallida: Saldo insuficiente ')
+            raise InsufficientFundsError("Operación fallida: Saldo insuficiente")
         self.balance -= amount # tercero, si las condiciones anteriores no se cumplen, resto la cantidad al balance
         self._log_transaction(f'Retirado: {amount}. Nuevo balance: {self.balance}')
         return self.balance
@@ -80,4 +84,3 @@ class BankAccount:
         self.balance -= amount
         self._log_transaction(f'Transferido: {amount}. Nuevo balance: {self.balance}')
         return self.balance
-    
