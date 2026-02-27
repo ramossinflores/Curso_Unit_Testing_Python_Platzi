@@ -6,8 +6,10 @@
 #====================================================================
 
 import unittest, os
+from unittest.mock import patch
 from src.bank_account import BankAccount
 from src.banxico import api_is_up
+from src.exceptions import InsufficientFundsError
 
 BANXICO_TOKEN = os.getenv("BANXICO_TOKEN", "")
 class BankAccountTests(unittest.TestCase): 
@@ -48,7 +50,7 @@ class BankAccountTests(unittest.TestCase):
     
 # Testea el comportamiento del retiro cuando el saldo es insuficiente    
     def test_insufficient_funds_withdraw(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(InsufficientFundsError):
             self.account.withdraw(2000)
         with open(self.account.log_file, "r") as f:
             content = f.read()
@@ -59,6 +61,17 @@ class BankAccountTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.account.withdraw(0)
 
+# Testea la funcionalidad del horario permitidos para retiros
+    @patch("src.bank_account.datetime")
+    def test_withdraw_during_bussines_hours(self, mock_datetime):
+        fake_now = unittest.mock.Mock()
+        fake_now.hour = 10
+        mock_datetime.now.return_value = fake_now
+
+        new_balance = self.account.withdraw(100)
+        self.assertEqual(new_balance, 900)
+
+
 # Testea la función que muestra el balance
     def test_get_balance(self):
         # assert self.account.get_balance() == 1000
@@ -68,6 +81,7 @@ class BankAccountTests(unittest.TestCase):
     def test_transfer(self):
         new_balance = self.account.transfer(300)
         self.assertEqual(new_balance, 700, "El balance no es correcto")
+
 
 # Testea el comportamiento de la transferencia cuando el saldo es insuficiente        
     def test_insufficient_funds_transfer(self):
@@ -110,7 +124,7 @@ class BankAccountTests(unittest.TestCase):
         ]
         for case in test_cases:
             with self.subTest(case=case): 
-                self.account = BankAccount(balance=1000, log_file="transactions.txt")
+                self.account = BankAccount(balance=1000, log_file="transaction_log.txt")
                 new_balance = self.account.deposit(case["amount"])
                 self.assertEqual(new_balance, case["expected"])
 

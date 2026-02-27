@@ -56,7 +56,7 @@ class BankAccount:
     # método retiro
     def withdraw(self, amount):
         now = datetime.now()
-        if now.hour < 8 and now.hour >= 17:
+        if now.hour < 8 or now.hour >= 17:
             raise WithdrawlTimeRestrictionError("Los retiros sólo están disponibles desde las 8am a 5pm")
         if amount <= 0: # primero, comprueba si el valor es menor o igual a cero
             self._log_transaction('Operación fallida: Importe inválido')
