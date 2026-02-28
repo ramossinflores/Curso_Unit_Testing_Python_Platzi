@@ -61,7 +61,7 @@ class BankAccountTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.account.withdraw(0)
 
-# Testean la funcionalidad del horario permitidos para retiros
+# Testea la funcionalidad del horario permitidos para retiros
     @patch("src.bank_account.datetime")
     def test_withdraw_during_bussines_hours(self, mock_datetime):
         fake_now = unittest.mock.Mock()
@@ -71,6 +71,7 @@ class BankAccountTests(unittest.TestCase):
         new_balance = self.account.withdraw(100)
         self.assertEqual(new_balance, 900)
 
+# Testea la funcionalidad del retiro antes del horario de disponibilidad
     @patch("src.bank_account.datetime")
     def test_withdraw_desallow_before_bussines_hours(self, mock_datetime):
         fake_now = unittest.mock.Mock()
@@ -79,6 +80,7 @@ class BankAccountTests(unittest.TestCase):
         with self.assertRaises(WithdrawlTimeRestrictionError):
             self.account.withdraw(100)
     
+# Testea la funcionalidad del retiro después del horario de disponibilidad
     @patch("src.bank_account.datetime")
     def test_withdraw_desallow_after_bussines_hours(self, mock_datetime):
         fake_now = unittest.mock.Mock()
@@ -96,7 +98,6 @@ class BankAccountTests(unittest.TestCase):
     def test_transfer(self):
         new_balance = self.account.transfer(300)
         self.assertEqual(new_balance, 700, "El balance no es correcto")
-
 
 # Testea el comportamiento de la transferencia cuando el saldo es insuficiente        
     def test_insufficient_funds_transfer(self):
@@ -130,7 +131,7 @@ class BankAccountTests(unittest.TestCase):
         usd = acc.get_balance_usd()
         self.assertGreater(usd, 0)        
     
-    # Función para probar la parametrización con pruebas con subtest
+# Función para probar la parametrización con pruebas con subtest
     def test_deposit_multiple_amounts(self):
         test_cases =  [
             {"amount" : 100, "expected": 1100 },
