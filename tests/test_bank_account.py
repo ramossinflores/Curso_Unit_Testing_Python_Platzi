@@ -89,6 +89,15 @@ class BankAccountTests(unittest.TestCase):
         with self.assertRaises(WithdrawlTimeRestrictionError):
             self.account.withdraw(100)
 
+# Testea la funcionalidad del retiro cuando el valor es negativo mockeando datetime
+    @patch("src.bank_account.datetime")
+    def test_withdraw_negative_amount(self, mock_datetime):
+        fake_now = unittest.mock.Mock()
+        fake_now.hour = 10
+        mock_datetime.now.return_value = fake_now
+        with self.assertRaises(ValueError):
+            self.account.withdraw(-100)
+
 # Testea la función que muestra el balance
     def test_get_balance(self):
         # assert self.account.get_balance() == 1000
